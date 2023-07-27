@@ -1,6 +1,6 @@
 name: "ZAP Baseline Scan"
 
-  #on:
+  on:
   #  schedule:
   #    - cron:  '0 18 * * 6'
 
