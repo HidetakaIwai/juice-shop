@@ -1,6 +1,7 @@
 name: "Update challenges on owasp-juice.shop"
 
-  #on:
+on:
+  workflow_dispatch:
   #  push:
   #    branches: [ master ]
   #    paths: 

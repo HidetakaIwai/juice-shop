@@ -1,6 +1,7 @@
 name: "Update news on owasp-juice.shop"
 
-  #on:
+on:
+  workflow_dispatch:
   #  release:
   #    types: [ published ]
 
