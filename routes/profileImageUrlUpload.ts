@@ -12,10 +12,19 @@ import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 const request = require('request')
 
+// お試しの修正
+// 許可されたドメインのホワイトリストを定義
+const allowedDomains = ['example.com', 'api.example.com'];
+
 module.exports = function profileImageUrlUpload () {
   return (req: Request, res: Response, next: NextFunction) => {
     if (req.body.imageUrl !== undefined) {
       const url = req.body.imageUrl
+      // お試しの修正
+      // ホワイトリストまたは正規表現パターンを使用してURLを検証する
+      if (!isUrlValid(url)) {
+	      return next(new Error('無効なURLです'));
+      }
       if (url.match(/(.)*solve\/challenges\/server-side(.)*/) !== null) req.app.locals.abused_ssrf_bug = true
       const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
@@ -40,3 +49,10 @@ module.exports = function profileImageUrlUpload () {
     res.redirect(process.env.BASE_PATH + '/profile')
   }
 }
+
+// お試しの修正
+function isUrlValid(url: string): boolean {
+	const host = new URL(url).hostname;
+	return allowedDomains.some(domain => host.includes(domain));
+}
+
